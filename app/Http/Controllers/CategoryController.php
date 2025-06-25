@@ -29,62 +29,9 @@ class CategoryController extends Controller
                      ->with('posts', $posts);      // そのカテゴリーに属する投稿
     }
 
-    public function create()
-    {
-        return view('categories.admin.create'); // 後で作成するビュー
-    }
 
-    /**
-     * 新しいカテゴリをデータベースに保存
-     */
-    public function store(Request $request)
-    {
-        // バリデーションルールを定義
-        $request->validate([
-            'name' => 'required|string|max:20|unique:categories,name', // カテゴリ名は必須、文字列、255文字以内、ユニーク
-        ]);
 
-        // カテゴリを作成してデータベースに保存
-        Category::create([
-            'name' => $request->name,
-        ]);
 
-        return redirect()->route('category.index')->with('success', 'The category was created successfully.');
-    }
 
-    /**
-     * 既存のカテゴリを編集するフォームを表示
-     */
-    public function edit(Category $category)
-    {
-        return view('categories.admin.edit')->with('category', $category); // 後で作成するビュー
-    }
 
-    /**
-     * 既存のカテゴリをデータベースで更新
-     */
-    public function update(Request $request, Category $category)
-    {
-        // バリデーションルールを定義
-        $request->validate([
-            'name' => 'required|string|max:20|unique:categories,name,' . $category->id, // 更新時は自分自身の名前は重複とみなさない
-        ]);
-
-        // カテゴリを更新
-        $category->update([
-            'name' => $request->name,
-        ]);
-
-        return redirect()->route('category.index')->with('success', 'The category was updated successfully.');
-    }
-
-    /**
-     * カテゴリをデータベースから削除
-     */
-    public function destroy(Category $category)
-    {
-        $category->delete();
-
-        return redirect()->route('category.index')->with('success', 'The category was deleted successfully.');
-    }
 }

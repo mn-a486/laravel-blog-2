@@ -6,7 +6,14 @@
     <div class="mt-2 border border-2 rouded p-4 shadow-sm">
         <h2 class="h4">{{ $post->title }}</h2>
         <h3 class="h6 text-secondary">
-           by <a href="{{ route('profile.see', $post->user->id) }}" class="text-decoration-none text-secondary">{{ $post->user->name }}</a>
+           by
+            @if ($post->user) {{-- Added null check for $post->user --}}
+                <a href="{{ route('profile.see', $post->user->id) }}" class="text-decoration-none text-secondary">
+                    {{ $post->user->name }}
+                </a>
+            @else
+                <span class="text-muted">*Deleted User*</span> {{-- Display for soft-deleted user --}}
+            @endif
         </h3>
         <p class="fw-light" style="word-wrap: break-word;">{{ $post->body }}</p>
 
@@ -20,13 +27,13 @@
                     {{-- action buttons --}}
             @if (Auth::user()->id == $post->user_id)
                 <div class="me-2 text-end">
-                    <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary btn-sm">
+                    <a href="{{ route('post.edit', $post->id) }}" class="btn btn-outline-warning btn-sm">
                         <i class="fas fa-pen"></i> Edit
                     </a>
 
 
                         {{-- <button type="submit" class="btn btn-danger btn-sm" title="Delete"><i class="fa-solid fa-trash-can"></i> Delete</button> --}}
-                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $post->id }}">
+                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $post->id }}">
                     <i class="fas fa-trash-can"></i> Delete
                     </button>
                     </form>
@@ -46,8 +53,9 @@
                                     <p class="text-center">Do you want to delete this post?</p>
                                 </div>
                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-danger">Delete</button>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
                                 </div>
                             </form>
                         </div>
@@ -83,11 +91,11 @@
                     </div>
                     <div class="text-end">
                         @if (Auth::user()->id == $comment->user->id)
-                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $comment->id }}">
+                            <button type="button" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $comment->id }}">
                                 <i class="fas fa-pen"></i> Edit
                             </button>
 
-                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $comment->id }}">
+                            <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $comment->id }}">
                                 <i class="fas fa-trash-can"></i> Delete
                             </button>
 
@@ -111,8 +119,9 @@
                                                 @enderror
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn btn-success">Save</button>
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-warning">Save</button>
+                                                
                                             </div>
                                         </form>
                                     </div>
@@ -134,8 +143,9 @@
                                                 <p class="text-center">Do you want to delete this comment?</p>
                                             </div>
                                             <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                                                 <button type="submit" class="btn btn-danger">Delete</button>
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
                                             </div>
                                         </form>
                                     </div>

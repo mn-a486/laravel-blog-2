@@ -11,7 +11,7 @@
         @auth
             @if (Auth::user()->isAdmin())
                 <div class="text-end mb-3">
-                    <a href="{{ route('category.admin.create') }}" class="btn btn-primary">
+                    <a href="{{ route('admin.categories.create') }}" class="btn btn-outline-light text-dark   ">
                         <i class="fa-solid fa-plus me-1"></i> Add New Category
                     </a>
                 </div>
@@ -44,10 +44,10 @@
                         </a>
                         <div class="d-flex align-items-center">
                             {{-- そのカテゴリーに属する投稿数を表示 (Optional) --}}
-                            <span class="badge bg-primary rounded-pill px-3 py-2 me-5">{{ $category->posts->count() }} Posts</span>
+                            <span class="badge bg-secondary rounded-pill px-3 py-2 me-5">{{ $category->posts->count() }} Posts</span>
                             @auth
                                 @if (Auth::user()->isAdmin())
-                                    <a href="{{ route('category.admin.edit', $category->id) }}" class="btn btn-sm btn-outline-warning me-1">
+                                    <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-sm btn-outline-warning me-1">
                                         <i class="fa-solid fa-pen-to-square"></i> Edit
                                     </a>
                                     <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal-{{ $category->id }}">
@@ -64,7 +64,7 @@
         @endif
     </div>
 
-    {{-- ★ここから追加：BootstrapモーダルのHTMLコード★ --}}
+    {{-- モーダル --}}
     @foreach ($categories as $category)
     <div class="modal fade" id="deleteCategoryModal-{{ $category->id }}" tabindex="-1" aria-labelledby="deleteCategoryModalLabel-{{ $category->id }}" aria-hidden="true">
         <div class="modal-dialog">
@@ -78,7 +78,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form action="{{ route('category.admin.destroy', $category->id) }}" method="POST" class="d-inline">
+                    <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>

@@ -11,7 +11,12 @@
                         <h2 class="h4">{{ $post->title }}</h2>
                     </a>
                     <h3 class="h6 text-secondary">
-                       by <a href="{{ route('profile.see', $post->user->id) }}" class="text-decoration-none text-secondary">{{ $post->user->name }}</a>
+                       by 
+                        @if ($post->user)
+                           <a href="{{ route('profile.see', $post->user->id) }}" class="text-decoration-none text-secondary">{{ $post->user->name }}</a>
+                       @else
+                           <span class="text-muted">*Deleted User*</span>
+                       @endif
                     </h3>
                                             
                     <p class="fw-light mb-0" style="word-wrap: break-word;">
@@ -35,19 +40,19 @@
                     {{-- action buttons --}}
                     @if (Auth::user()->id == $post->user_id)
                     <div class="me-2 text-end">
-                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary btn-sm">
+                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-outline-warning btn-sm">
                             <i class="fas fa-pen"></i> Edit
                         </a>
 
 
                             {{-- <button type="submit" class="btn btn-danger btn-sm" title="Delete"><i class="fa-solid fa-trash-can"></i> Delete</button> --}}
-                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $post->id }}">
+                        <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $post->id }}">
                         <i class="fas fa-trash-can"></i> Delete
                         </button>
                         </form>
                     </div>
 
-                                {{-- モーダル（Pop up) --}}
+                                {{-- Delete モーダル --}}
                     <div class="modal fade" id="editModal{{ $post->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $post->id }}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -62,8 +67,9 @@
                                         <p class="text-center">Do you want to delete this post?</p>
                                     </div>
                                     <div class="modal-footer">
+                                        
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-danger">Delete</button>
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                     </div>
                                 </form>
                             </div>

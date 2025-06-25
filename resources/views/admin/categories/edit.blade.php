@@ -24,7 +24,7 @@
                         @endif
 
                         {{-- PATCHメソッドを使って更新 --}}
-                        <form action="{{ route('category.admin.update', $category->id) }}" method="POST">
+                        <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
                             @csrf
                             @method('PATCH') {{-- PATCHメソッドを使うため --}}
 
@@ -39,9 +39,8 @@
                                     </div>
                                 @enderror
                             </div>
-
+                            <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary ms-2">Cancel</a>
                             <button type="submit" class="btn btn-success">Edit</button>
-                            <a href="{{ route('category.index') }}" class="btn btn-outline-secondary ms-2">Cancel</a>
                         </form>
                     </div>
                 </div>

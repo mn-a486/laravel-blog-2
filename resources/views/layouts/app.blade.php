@@ -35,9 +35,16 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         {{-- カテゴリー一覧へのリンクを追加 --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('category.index') }}">Categories</a>
-                        </li>
+                        @auth
+                            <li class="nav-item">
+                                {{-- ログインユーザーが管理者かどうかでリンクを分岐 --}}
+                                @if (Auth::user()->isAdmin()) {{-- ここでisAdmin()メソッドを使用 --}}
+                                    <a class="nav-link" href="{{ route('admin.categories.index') }}">Categories (Admin)</a>
+                                @else
+                                    <a class="nav-link" href="{{ route('category.index') }}">Categories</a>
+                                @endif
+                            </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -69,17 +76,32 @@
                             <a href="{{ route('post.create') }}" class="nav-link">Create Post</a>
                         </li>
 
-                        {{-- account --}}
+                        {{-- Account Dropdown --}}
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    {{-- profile --}}
+                                    {{-- Profile Link --}}
                                     <a href="{{ route('profile.show') }}" class="dropdown-item">Profile</a>
 
-                                    {{-- Logout --}}
+                                    {{-- Admin Panel Links --}}
+                                    @if(Auth::user()->isAdmin()) {{-- Check if the user is an admin --}}
+                                        <h6 class="dropdown-header">-- Admin Panel --</h6>
+                                        <a class="dropdown-item" href="{{ route('admin.users.index') }}">
+                                            User Management
+                                        </a>
+                                        {{-- You can add other admin links here, e.g., Post Management, Category Management --}}
+                                        <a class="dropdown-item" href="{{ route('admin.categories.index') }}">
+                                            Category Management
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('admin.posts.index') }}">
+                                            Post Management
+                                        </a>
+                                    @endif
+
+                                    {{-- Logout Link --}}
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

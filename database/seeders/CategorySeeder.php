@@ -13,6 +13,7 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::create(['name' => 'General']);
+        Category::create(['name' => 'Travel']);
+        Category::create(['name' => 'Food']);
     }
 }

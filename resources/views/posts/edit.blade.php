@@ -24,7 +24,7 @@
         <div class="row mb-3">
             <div class="col-6">
                 <label for="image" class="form-label text-secondary">Image</label>
-                <img src="{{ asset('storage/images/' . $post->image) }}" alt="{{ $post->image }}" class="w-100 img-thumbnail">
+                <img src="{{ $post->image }}" alt="{{ $post->image }}" class="w-100 img-thumbnail">
                 <input type="file" name="image" id="image" class="form-control mt-1">
             </div>
             <div class="form-text" id="image-info">

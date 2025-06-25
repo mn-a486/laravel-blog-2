@@ -50,7 +50,7 @@
                        {{-- old('categories')は配列なのでin_arrayでチェック --}}
                        {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}>
                 <span class="form-check-label">{{ $category->name }}</span>
-            </label><br>
+            </label>
         @endforeach
         {{-- error --}}
         @error('categories')

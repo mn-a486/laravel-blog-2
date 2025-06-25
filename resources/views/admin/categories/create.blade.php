@@ -23,7 +23,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('category.admin.store') }}" method="POST">
+                        <form action="{{ route('admin.categories.store') }}" method="POST">
                             @csrf {{-- LaravelのCSRF保護のため必須 --}}
 
                             <div class="mb-3">
@@ -37,9 +37,8 @@
                                     </div>
                                 @enderror
                             </div>
-
-                            <button type="submit" class="btn btn-primary">Add</button>
                             <a href="{{ route('category.index') }}" class="btn btn-outline-secondary ms-2">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Add</button>
                         </form>
                     </div>
                 </div>
