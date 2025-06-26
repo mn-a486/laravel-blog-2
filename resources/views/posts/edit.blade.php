@@ -42,7 +42,7 @@
                         <input type="checkbox" name="categories[]" value="{{ $category->id }}"
                             {{ $post->categories->contains($category->id) ? 'checked' : '' }}>
                         {{ $category->name }}
-                    </label><br>
+                    </label>
                 @endforeach
         </div>
         <button type="submit" class="btn btn-warning px-5">Save</button>

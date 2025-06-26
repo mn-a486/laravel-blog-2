@@ -38,9 +38,7 @@
                         @auth
                             <li class="nav-item">
                                 {{-- ログインユーザーが管理者かどうかでリンクを分岐 --}}
-                                @if (Auth::user()->isAdmin()) {{-- ここでisAdmin()メソッドを使用 --}}
-                                    <a class="nav-link" href="{{ route('admin.categories.index') }}">Categories (Admin)</a>
-                                @else
+                                @if (!Auth::user()->isAdmin())
                                     <a class="nav-link" href="{{ route('category.index') }}">Categories</a>
                                 @endif
                             </li>
