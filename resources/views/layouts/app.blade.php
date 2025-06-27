@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar fixed navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar fixed-top navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <h1 class="h5 mb-0">{{ config('app.name', 'Blog') }}</h1>
@@ -117,7 +117,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4" style="margin-top: 70px;">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-8">
