@@ -24,8 +24,8 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('production')) {
             URL::forceScheme('https');
 
-            // 🚫 旧Heroku URL からのアクセスを拒否
-            if (request()->getHost() === '旧アプリ名.herokuapp.com') {
+            // 旧Heroku URL からのアクセスを拒否
+            if (request()->getHost() === 'laravel-blog-1-mn-cf247c2bfe7f.herokuapp.com') {
                 abort(403, 'Access denied');
             }
         }
