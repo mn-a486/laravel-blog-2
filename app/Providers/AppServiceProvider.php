@@ -20,8 +20,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if($this->app->environment('production')){
+        // 本番環境では https を強制
+        if ($this->app->environment('production')) {
             URL::forceScheme('https');
+
+            // 🚫 旧Heroku URL からのアクセスを拒否
+            if (request()->getHost() === '旧アプリ名.herokuapp.com') {
+                abort(403, 'Access denied');
+            }
         }
     }
 }
