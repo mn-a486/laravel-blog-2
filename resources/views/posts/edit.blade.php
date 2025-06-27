@@ -38,7 +38,7 @@
         <div class="mb-3">
             <label for="category_id" class="form-label text-secondary">Categories</label><br>
                 @foreach ($categories as $category)
-                    <label>
+                    <label class="form-check-inline me-3">
                         <input type="checkbox" name="categories[]" value="{{ $category->id }}"
                             {{ $post->categories->contains($category->id) ? 'checked' : '' }}>
                         {{ $category->name }}
